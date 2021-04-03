@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+#data {
+    background-color: #dcdcdca4;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 15%;
+    resize: both;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    text-align: center;
+    line-height: 20pt;
+}
+
+button {
+    font-family: inherit;
+    font-weight: inherit;
+}
+
+input[type="number"] {
+    width: 50%;
+}
+
+#playpause {
+    user-select: none;
+    color: #000000;
+    font-size: xx-large;
+    transition: 250ms ease;
+}
+
+#playpause:hover {
+    color: #494949;
+}

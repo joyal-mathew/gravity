@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Simulation</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <canvas id="display"></canvas>
+    <div id="data">
+        <i class="material-icons" id="playpause">pause_circle_outline</i>
+        <hr>
+        <label for="G">G: </label><input id="G" type="number" placeholder="1" min="-10" max="10" step="0.01" value=".1">
+        <hr>
+        <label for="r">radius: </label><input id="r" min="1" placeholder="25" type="number"><br>
+        <label for="d">density: </label><input id="d" placeholder="1" type="number"><br>
+        <button id="add">Add Body</button>
+        <hr>
+        <p>Presets</p><br>
+        <button id="orbit">Orbit</button><br>
+        <button id="twobodies">Two Bodies</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
