@@ -128,10 +128,40 @@ class Universe {
                     if (body1 !== body2) {
                         const distance = body1.position.distance(body2.position);
                         if (distance < body1.radius + body2.radius) {
-                            if (body1.radius < body2.radius)
-                                body1.destroy = true;
-                            else
-                                body2.destroy = true;
+                            if (collisions) {
+                              const nx = (body1.position.x - body2.position.x) / distance;
+                              const ny = (body1.position.y - body2.position.y) / distance;
+
+                              const tx = -ny;
+                              const ty = nx;
+
+                              const dptan1 = body2.velocity.x * tx + body2.velocity.y * ty;
+                              const dptan2 = body1.velocity.x * tx + body1.velocity.y * ty;
+
+                              const dpnorm1 = body2.velocity.x * nx + body2.velocity.y * ny;
+                              const dpnorm2 = body1.velocity.x * nx + body1.velocity.y * ny;
+
+                              const m1 = (dpnorm1 * (body2.mass - body1.mass) + 2 * body1.mass * dpnorm2) / (body1.mass + body2.mass);
+                              const m2 = (dpnorm2 * (body1.mass - body2.mass) + 2 * body2.mass * dpnorm1) / (body1.mass + body2.mass);
+
+                              body1.position.addEq(body1.velocity.mul(-1));
+                              body2.position.addEq(body2.velocity.mul(-1));
+
+                              body2.velocity.x = tx * dptan1 + nx * m1;
+                              body2.velocity.y = ty * dptan1 + ny * m1;
+                              body1.velocity.x = tx * dptan2 + nx * m2;
+                              body1.velocity.y = ty * dptan2 + ny * m2;
+                            }
+                            else {
+                              if (body1.radius < body2.radius) {
+                                  body1.destroy = true;
+                                  body2.radius += body1.radius;
+                              }
+                              else {
+                                  body2.destroy = true;
+                                  body1.radius += body2.radius;
+                              }
+                            }
                         }
                         else {
                             const magnitude = this.g * body2.mass / distance ** 2;
@@ -156,6 +186,7 @@ class Universe {
     }
 }
 
+const collide = document.getElementById("collide");
 const radius = document.getElementById("r");
 const density = document.getElementById("d");
 const add = document.getElementById("add");
@@ -170,6 +201,7 @@ canvas.height = innerHeight;
 const background = generateBackground(canvas.width, canvas.height);
 const universe = new Universe();
 
+let collisions = false;
 let adding = false;
 let dragging = false;
 const pos = { x: 0, y: 0 };
@@ -179,6 +211,10 @@ playPause.onclick = playOrPause;
 editG.oninput = () => {
     universe.g = +editG.value || .1;
 };
+
+collide.oninput = () => {
+  collisions = collide.checked;
+}
 
 add.onclick = () => {
     adding = !adding;
@@ -227,6 +263,12 @@ document.getElementById("twobodies").onclick = () => {
     universe.tail.velocity = new Vector(0, 2);
     universe.addBody(new CelestialBody(canvas.width * 0.4, canvas.height / 2, 25, 10));
     universe.tail.velocity = new Vector(0, -2);
+};
+
+document.getElementById("threebodies").onclick = () => {
+    universe.celestialbodies.splice(0, universe.celestialbodies.length);
+    universe.addBody(new CelestialBody(canvas.width * 0.25, canvas.height * 0.25, 10, 0.011));
+    universe.addBody(new CelestialBody(canvas.width * 0.25, canvas.height * 0.25 + 100, 10, 0.00907));
 };
 
 function frame() {
