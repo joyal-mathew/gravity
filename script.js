@@ -259,16 +259,10 @@ document.getElementById("orbit").onclick = () => {
 
 document.getElementById("twobodies").onclick = () => {
     universe.celestialbodies.splice(0, universe.celestialbodies.length);
-    universe.addBody(new CelestialBody(canvas.width * 0.3, canvas.height / 2, 25, 10));
+    universe.addBody(new CelestialBody(canvas.width * 0.2, canvas.height / 2, 25, 50));
     universe.tail.velocity = new Vector(0, 2);
-    universe.addBody(new CelestialBody(canvas.width * 0.4, canvas.height / 2, 25, 10));
+    universe.addBody(new CelestialBody(canvas.width * 0.2 + 200, canvas.height / 2, 25, 50));
     universe.tail.velocity = new Vector(0, -2);
-};
-
-document.getElementById("threebodies").onclick = () => {
-    universe.celestialbodies.splice(0, universe.celestialbodies.length);
-    universe.addBody(new CelestialBody(canvas.width * 0.25, canvas.height * 0.25, 10, 0.011));
-    universe.addBody(new CelestialBody(canvas.width * 0.25, canvas.height * 0.25 + 100, 10, 0.00907));
 };
 
 function frame() {
