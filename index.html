@@ -12,7 +12,8 @@
     <div id="data">
         <i class="material-icons" id="playpause">pause_circle_outline</i>
         <hr>
-        <label for="G">G: </label><input id="G" type="number" placeholder="1" min="-10" max="10" step="0.01" value=".1">
+        <label for="G">G: </label><input id="G" type="number" placeholder="1" min="-10" max="10" step="0.01" value=".1"><br>
+        <label for="collide">Collisions: </label><input type="checkbox" id="collide">
         <hr>
         <label for="r">radius: </label><input id="r" min="1" placeholder="25" type="number"><br>
         <label for="d">density: </label><input id="d" placeholder="1" type="number"><br>
@@ -20,7 +21,7 @@
         <hr>
         <p>Presets</p><br>
         <button id="orbit">Orbit</button><br>
-        <button id="twobodies">Two Bodies</button>
+        <button id="twobodies">Two Bodies</button><br>
     </div>
     <script src="script.js"></script>
 </body>
